@@ -86,7 +86,11 @@ class RouteMap {
     // add property to the links
     for (let link of this.links) {
       for (let bind of this.bindData) {
-        if (link.task == RouteMap.TASK && link.source.id == bind.source && link.target.id == bind.target) {
+        if (
+          link.task == RouteMap.TASK &&
+          link.source.id == bind.source &&
+          link.target.id == bind.target
+        ) {
           link["property"] = bind;
         }
       }
@@ -118,13 +122,15 @@ class RouteMap {
       })
       .on("mouseover", function (d) {
         d3.select(this).transition().duration(200).style("stroke-width", 10);
-        d3.select(".tooltip")
-          .style("opacity", 0.9)
-          .html(RouteMap.pretty(d.srcElement.__data__.property))
-          .style("left", d.pageX + "px")
-          // .html("<p> source id: " + d.srcElement.__data__.source['id'] + "</p>"
-          //     + "<p> target id: " + d.srcElement.__data__.target['id'] + "</p>").style("left", (d.pageX) + "px")
-          .style("top", d.pageY - 30 + "px");
+        if (d.srcElement.__data__.property != undefined) {
+          d3.select(".tooltip")
+            .style("opacity", 0.9)
+            .html(RouteMap.pretty(d.srcElement.__data__.property))
+            .style("left", d.pageX + "px")
+            // .html("<p> source id: " + d.srcElement.__data__.source['id'] + "</p>"
+            //     + "<p> target id: " + d.srcElement.__data__.target['id'] + "</p>").style("left", (d.pageX) + "px")
+            .style("top", d.pageY - 30 + "px");
+        }
       })
       .on("mouseout", function (d) {
         d3.select(this).transition().duration(200).style("stroke-width", 2);
@@ -324,15 +330,33 @@ class RouteMap {
     }
   }
 
-  static pretty(bindData){
+  static pretty(bindData) {
     var output;
-    if(bindData == undefined){
-      return "Non-task"
+    if (bindData == undefined) {
+      return "Non-task";
     }
 
-    output = "<p> CFD:" + bindData['CFD'] + ", CFH:" + bindData['CFH'] + ", CR:" + bindData['CR'] + ", CTD:" + bindData['CTD'] + "</p>" 
-    output += "<p> DEM:" + bindData['DEM'] + ", FRT" + bindData['FRT'] + ", RQ:" + bindData['RQ'] + ", SC:" + bindData['SC'] + "</p>"
-    return output
+    output =
+      "<p> CFD:" +
+      bindData["CFD"] +
+      ", CFH:" +
+      bindData["CFH"] +
+      ", CR:" +
+      bindData["CR"] +
+      ", CTD:" +
+      bindData["CTD"] +
+      "</p>";
+    output +=
+      "<p> DEM:" +
+      bindData["DEM"] +
+      ", FRT" +
+      bindData["FRT"] +
+      ", RQ:" +
+      bindData["RQ"] +
+      ", SC:" +
+      bindData["SC"] +
+      "</p>";
+    return output;
     // return JSON.stringify(bindData)
   }
 
