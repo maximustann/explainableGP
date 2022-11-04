@@ -13,11 +13,13 @@ def home():
     mapFile = open('./static/json/eq2Data/viz2.json')
     tableFile = open('./static/json/eq2Data/sample.json')
     pathFile = open('./static/json/eq2Data/pathE.json')
+    bindFile = open('./static/json/eq2Data/bind.json')
     pathData = json.load(pathFile)
     tableData = json.load(tableFile)
     eq = json.load(equationFile)
     eq1Data = json.load(dataFile)
     mapData = json.load(mapFile)
+    bindData = json.load(bindFile)
     equation = eq['equation']
     operators = eq['operators']
     terminals = eq['terminals']
@@ -32,7 +34,8 @@ def home():
                                             'previous_s_expression': equation,
                                             'previous_terminals': terminals,
                                             'previous_operators': operators,
-                                            'mapData': mapData
+                                            'mapData': mapData,
+                                            'bindData': bindData
                                             })
 
 

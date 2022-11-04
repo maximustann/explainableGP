@@ -3,6 +3,7 @@ from pyparsing.results import ParseResults
 import random
 import pandas as pd
 import json
+import os
 
 class Node():
     def __init__(self, name) -> None:
@@ -199,6 +200,7 @@ def multiply(a, b):
 def sub(a, b):
     return a - b
 
+
 if __name__ == '__main__':
     dataFile = {}
     operatorsMapping = {
@@ -213,7 +215,7 @@ if __name__ == '__main__':
 
     equationDataFile = open('./static/json/eq2Data/sample.json')
     eqData = json.load(equationDataFile)
-    # # print(eqData[0])
+    # print(eqData)
 
     equationFile = open('./static/json/eq2Data/eq2.json')
     eq = json.load(equationFile)
@@ -224,16 +226,48 @@ if __name__ == '__main__':
     parser.setOperators(operatorsMapping)
 
     dataList = []
-    for data in eqData:
+    maxDecisionSituations = (eqData[-1]['DecisionSituationN'] + 1)
+    for i in range(maxDecisionSituations):
+        subList = []
+        for data in eqData:
+            if data['DecisionSituationN'] == i:
+                subList.append(data)
+
+        dataList.append(subList)
+
+    outputData = []
+    for subList in dataList:
+        for index, data in enumerate(subList):
+            if data['selectedRow'] == 'true':
+                outputData.append(data)
+            if data['selectedRow'] == 'false' and index == (len(subList) - 1):
+                outputData.append(data)
+
+    # print(outputData)
+    treeList = []
+    for data in outputData:
         parser.setTerminalValues(data)
         tree = parser.constructTree(equation)
         parser.calculateOutputValue(tree)
         treeJsonFormat = parser.constructJsonFromTree(tree)
-        dataList.append(treeJsonFormat)
+        treeList.append(treeJsonFormat)
 
+    # print(len(treeList))
     dataFile['num_of_leaf_nodes'] = parser.calculateLeafNodeNum(tree)
-    dataFile['dataList'] = dataList
+    dataFile['dataList'] = treeList
 
-    with open('/Users/maximustann/Work/bootstrap/visualization/static/json/eq2Data/eq2_data.json', 'w') as outfile:
+
+    # for data in eqData:
+    #     parser.setTerminalValues(data)
+    #     tree = parser.constructTree(equation)
+    #     parser.calculateOutputValue(tree)
+    #     treeJsonFormat = parser.constructJsonFromTree(tree)
+    #     dataList.append(treeJsonFormat)
+
+    # dataFile['num_of_leaf_nodes'] = parser.calculateLeafNodeNum(tree)
+    # dataFile['dataList'] = dataList
+    
+
+    with open('./static/json/eq2Data/eq2_data.json', 'w') as outfile:
         json.dump(dataFile, outfile)
 

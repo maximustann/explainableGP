@@ -34,7 +34,6 @@ function storeTableValue() {
 
 function previousSituation() {
   decisionSituationN = JSON.parse(localStorage.getItem("decisionSituationN"));
-  console.log("previous decision" + decisionSituationN)
   if (decisionSituationN !== 0) {
     decisionSituationN -= 1;
     localStorage.setItem("decisionSituationN", decisionSituationN);
@@ -56,6 +55,7 @@ function nextSituation() {
 function loadTable() {
   $(document).ready(function () {
     decisionSituationN = JSON.parse(localStorage.getItem("decisionSituationN"));
+    // console.log(decisionSituationN)
     if (decisionSituationN == null) {
       decisionSituationN = 0;
     }
@@ -79,30 +79,13 @@ function loadTable() {
 
 function calDecisionSituation(tableData) {
   maxDecisionSituation = tableData[tableData.length - 1]["DecisionSituationN"];
+  // console.log(tableData)
+  // maxDecisionSituation = tableData.length
+  // console.log(maxDecisionSituation)
   localStorage.setItem("maxDecisionSituation", maxDecisionSituation);
 }
 
 function findDecisionRow(tableData, allGpTree){
     decisionSituationN = JSON.parse(localStorage.getItem("decisionSituationN"));
-    var rows = [];
-
-    counter = 0
-    while(tableData[counter]["DecisionSituationN"] != decisionSituationN){
-        counter++;
-    }
-
-    for(var i = counter; i < tableData.length; i++){
-        if (tableData[i]["DecisionSituationN"] == decisionSituationN) {
-             rows.push(tableData[i])
-        }
-    }
-
-
-    for (var i = 0; i < rows.length; i++){
-        if(rows[i]['selectedRow'] == 'true'){
-            return allGpTree[counter]
-        } else{
-            counter++
-        }
-    }
+    return allGpTree[decisionSituationN]
 }

@@ -1,13 +1,13 @@
 class RouteMap {
-  constructor(mapData, pathData, divValue, divWidth, divHeight) {
+  constructor(mapData, pathData, bindData, divValue, divWidth, divHeight) {
     this.mapData = mapData;
     this.pathData = pathData;
+    this.bindData = bindData;
     this.divValue = divValue;
     this.divWidth = divWidth;
     this.divHeight = divHeight;
     this.path = 0;
     this.edge = 0;
-
 
     // calculate the max X and Y
     const maxValues = this.calculateMax();
@@ -31,28 +31,28 @@ class RouteMap {
   }
 
   // The following functions return static values
-  static get TASK(){
-    return 0
+  static get TASK() {
+    return 0;
   }
 
-  static get NONTASK(){
-    return 1
+  static get NONTASK() {
+    return 1;
   }
 
-  static get TASKNOTSERVED(){
-    return 2
+  static get TASKNOTSERVED() {
+    return 2;
   }
 
-  static get PASS(){
-    return 3
+  static get PASS() {
+    return 3;
   }
 
-  static get SERVED(){
-    return 0
+  static get SERVED() {
+    return 0;
   }
 
-  static get OFFSET(){
-    return 20
+  static get OFFSET() {
+    return 20;
   }
 
   // draw map
@@ -63,9 +63,11 @@ class RouteMap {
       .attr("width", this.width)
       .attr("height", this.height);
 
-    this.div = d3.select("body").append("div")
-                    .attr("class", "tooltip")
-                    .style("opacity", 0)
+    this.div = d3
+      .select("body")
+      .append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
 
     this.g = this.svg.append("g");
 
@@ -81,10 +83,20 @@ class RouteMap {
       return { source, target, task };
     });
 
+    // add property to the links
+    for (let link of this.links) {
+      for (let bind of this.bindData) {
+        if (link.task == RouteMap.TASK && link.source.id == bind.source && link.target.id == bind.target) {
+          link["property"] = bind;
+        }
+      }
+    }
+
     // draw links
     this.g
       .selectAll("line.link")
-      .data(this.links, (d) => `${d.source.id}-${d.target.id}`)
+      // .data(this.links, (d) => `${d.source.id}-${d.target.id}`)
+      .data(this.links)
       .enter()
       .append("line")
       .classed("link", true)
@@ -106,14 +118,17 @@ class RouteMap {
       })
       .on("mouseover", function (d) {
         d3.select(this).transition().duration(200).style("stroke-width", 10);
-        d3.select('.tooltip').style("opacity", 0.9)
-            .html("<p> source id: " + d.srcElement.__data__.source['id'] + "</p>"
-                + "<p> target id: " + d.srcElement.__data__.target['id'] + "</p>").style("left", (d.pageX) + "px")
-          .style("top", (d.pageY - 30) + "px");
+        d3.select(".tooltip")
+          .style("opacity", 0.9)
+          .html(RouteMap.pretty(d.srcElement.__data__.property))
+          .style("left", d.pageX + "px")
+          // .html("<p> source id: " + d.srcElement.__data__.source['id'] + "</p>"
+          //     + "<p> target id: " + d.srcElement.__data__.target['id'] + "</p>").style("left", (d.pageX) + "px")
+          .style("top", d.pageY - 30 + "px");
       })
       .on("mouseout", function (d) {
         d3.select(this).transition().duration(200).style("stroke-width", 2);
-        d3.select('.tooltip').style("opacity", 0);
+        d3.select(".tooltip").style("opacity", 0);
       });
 
     // add nodes to each point
@@ -140,7 +155,6 @@ class RouteMap {
         }
       });
 
-
     // initial point is the starting point of the truck, usually from depot
     const initialPoint = this.pathData[this.path][this.edge];
     const initialPosition = this.findSouceTarget(
@@ -149,85 +163,84 @@ class RouteMap {
       initialPoint.target
     );
 
-  this.truck = this.g
-    .append("image")
-    .attr("xlink:href", "../static/image/truck.png")
-    .attr("x", this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET)
-    .attr("y", this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET)
-    .attr("width", 40)
-    .attr("height", 40);
+    this.truck = this.g
+      .append("image")
+      .attr("xlink:href", "../static/image/truck.png")
+      .attr("x", this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET)
+      .attr("y", this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET)
+      .attr("width", 40)
+      .attr("height", 40);
 
-  this.nodes
-    .append("text")
-    .style("font-size", "10px")
-    .attr("dy", ".25em")
-    .attr("y", 10)
-    .attr("x", 10)
-    .text(function (d) {
-      if (d.depot == true) {
-        return "depot";
-      } else {
-        return d.id;
-      }
-    });
-
+    this.nodes
+      .append("text")
+      .style("font-size", "10px")
+      .attr("dy", ".25em")
+      .attr("y", 10)
+      .attr("x", 10)
+      .text(function (d) {
+        if (d.depot == true) {
+          return "depot";
+        } else {
+          return d.id;
+        }
+      });
   }
 
+  // Move the truck to previous point
   async returnToPreviousPoint() {
-    if(this.path == 0) {
-      return
+    if (this.path == 0) {
+      return;
     }
     // reset the truck to the previous starting point
-    this.path -= 1
+    this.path -= 1;
     var targetPoint = this.pathData[this.path][0];
     var targetPosition = this.findSouceTarget(
-        this.links,
-        targetPoint.source,
-        targetPoint.target
+      this.links,
+      targetPoint.source,
+      targetPoint.target
     );
 
-    await d3.
-      select("image")
+    await d3
+      .select("image")
       .transition()
       .duration(500)
       .attr("x", this.widthScaler(targetPosition.sourceX) - RouteMap.OFFSET)
       .attr("y", this.heightScaler(targetPosition.sourceY) - RouteMap.OFFSET)
-      .end()
+      .end();
 
+    for (let i = 0; i < this.pathData[this.path].length; i++) {
+      var targetPoint = this.pathData[this.path][i];
+      var targetPosition = this.findSouceTarget(
+        this.links,
+        targetPoint.source,
+        targetPoint.target
+      );
 
-      for (let i = 0; i < this.pathData[this.path].length; i++) {
-        var targetPoint = this.pathData[this.path][i];
-        var targetPosition = this.findSouceTarget(
-          this.links,
-          targetPoint.source,
-          targetPoint.target
-        );
-  
-        this.g.selectAll("line.link")
-          .filter(function () {
-            return (
-              (d3.select(this).attr("source_id") == targetPoint.source &&
-                d3.select(this).attr("target_id") == targetPoint.target) ||
-              (d3.select(this).attr("target_id") == targetPoint.source &&
-                d3.select(this).attr("source_id") == targetPoint.target)
-            );
-          })
-          .transition()
-          .style("stroke", function () {
-            if (targetPosition.task == RouteMap.TASK) {
-              return "red";
-            } else {
-              return "blue"
-            }
-          })
-          .style("stroke-width", 2)
-          .attr("stroke-dasharray", function () {
-            if (targetPoint.serve == RouteMap.TASKNOTSERVED) {
-              return 0;
-            }
-          });
-      }
-
+      this.g
+        .selectAll("line.link")
+        .filter(function () {
+          return (
+            (d3.select(this).attr("source_id") == targetPoint.source &&
+              d3.select(this).attr("target_id") == targetPoint.target) ||
+            (d3.select(this).attr("target_id") == targetPoint.source &&
+              d3.select(this).attr("source_id") == targetPoint.target)
+          );
+        })
+        .transition()
+        .style("stroke", function () {
+          if (targetPosition.task == RouteMap.TASK) {
+            return "red";
+          } else {
+            return "blue";
+          }
+        })
+        .style("stroke-width", 2)
+        .attr("stroke-dasharray", function () {
+          if (targetPoint.serve == RouteMap.TASKNOTSERVED) {
+            return 0;
+          }
+        });
+    }
   }
 
   async driveForward() {
@@ -255,7 +268,8 @@ class RouteMap {
         .attr("y", this.heightScaler(targetPosition.targetY) - RouteMap.OFFSET)
         .end();
 
-      this.g.selectAll("line.link")
+      this.g
+        .selectAll("line.link")
         .filter(function () {
           return (
             (d3.select(this).attr("source_id") == targetPoint.source &&
@@ -294,26 +308,38 @@ class RouteMap {
           sourceY: obj.source["y"],
           targetX: obj.target["x"],
           targetY: obj.target["y"],
-          task: obj.task
+          task: obj.task,
         };
       }
-  
+
       if (obj.source["id"] == targetId && obj.target["id"] == sourceId) {
         return {
           sourceX: obj.target["x"],
           sourceY: obj.target["y"],
           targetX: obj.source["x"],
           targetY: obj.source["y"],
-          task: obj.task
+          task: obj.task,
         };
       }
     }
   }
 
+  static pretty(bindData){
+    var output;
+    if(bindData == undefined){
+      return "Non-task"
+    }
+
+    output = "<p> CFD:" + bindData['CFD'] + ", CFH:" + bindData['CFH'] + ", CR:" + bindData['CR'] + ", CTD:" + bindData['CTD'] + "</p>" 
+    output += "<p> DEM:" + bindData['DEM'] + ", FRT" + bindData['FRT'] + ", RQ:" + bindData['RQ'] + ", SC:" + bindData['SC'] + "</p>"
+    return output
+    // return JSON.stringify(bindData)
+  }
+
   calculateMax() {
     // calculate the maximum value of nodes horizontally (maxX) and virtically (maxY)
     // in order to scale the canvas properly
-    const totalNodes = self.mapData["nodes"]
+    const totalNodes = self.mapData["nodes"];
     var maxX = 0;
     var maxY = 0;
     for (const obj of totalNodes) {

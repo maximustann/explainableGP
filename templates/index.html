@@ -72,6 +72,7 @@
                             gpTreeData = findDecisionRow(tableData, totalData['tree']);
                             drawRouteMap.returnToPreviousPoint()
                             drawGPTree.cleanCanvas()
+                            
                             drawGPTree.drawTree(gpTreeData)
                         ">Previous</button>
                             <button type="button" class="btn btn-outline-primary" onclick="
@@ -79,8 +80,9 @@
                                                                                         loadTable();
                                                                                         gpTreeData = findDecisionRow(tableData, totalData['tree']);
                                                                                         drawGPTree.cleanCanvas()
+                                                                                        console.log(gpTreeData)
                                                                                         drawGPTree.drawTree(gpTreeData)
-                                                                                        nextSituation(); 
+                                                                                        nextSituation();
                                                                                         ">Next</button>
                         </div>
                     </nav>
@@ -179,15 +181,16 @@
         mapData = totalData['mapData']
         pathData = totalData['pathData']
         tableData = totalData['tableData']
+        bindData = totalData['bindData']
         localStorage.setItem('decisionSituationN', 0)
+        loadTable()
         gpTreeData = findDecisionRow(tableData, totalData['tree'])
         calDecisionSituation(tableData)
         divValue = document.getElementById("Map").getAttribute("value");
         divWidth = document.getElementById("Map").clientWidth;
         divHeight = document.getElementById("Map").clientHeight;
-        let drawRouteMap = new RouteMap(mapData, pathData, divValue, divWidth, divHeight)
+        let drawRouteMap = new RouteMap(mapData, pathData, bindData, divValue, divWidth, divHeight)
         let drawGPTree = new GPTree(total_leaf_nodes, divValue, divWidth, divHeight)
-        loadTable()
         drawRouteMap.drawMap()
         drawGPTree.drawTree(gpTreeData)
     </script>
