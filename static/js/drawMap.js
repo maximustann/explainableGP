@@ -15,19 +15,19 @@ class RouteMap {
     this.maxY = maxValues[1];
 
     // define the margins, canvas width and height
-    this.margin = { top: 30, right: 30, bottom: 30, left: 30 };
-    this.width = this.divWidth - this.margin.left - this.margin.right;
-    this.height = 500 - this.margin.top - this.margin.bottom;
+    this.margin = 30
+    this.width = this.divWidth - this.margin - this.margin;
+    this.height = 500 - this.margin - this.margin;
 
     this.widthScaler = d3
       .scaleLinear()
       .domain([0, this.maxX])
-      .range([this.margin.left, this.width - this.margin.right]);
+      .range([this.margin, this.width - this.margin]);
 
     this.heightScaler = d3
       .scaleLinear()
       .domain([0, this.maxY])
-      .range([this.margin.top, this.height - this.margin.left]);
+      .range([this.margin, this.height - this.margin * 2]);
   }
 
   // The following functions return static values
@@ -55,8 +55,25 @@ class RouteMap {
     return 20;
   }
 
+  static get TASKCOLOR(){
+    return 'red'
+  }
+
+  static get NONTASKCOLOR(){
+    return 'blue'
+  }
+  static get SERVEDCOLOR(){
+    return 'Chartreuse'
+  }
+
   // draw map
   drawMap() {
+    const margin = this.margin
+    const maxY = this.maxY
+    var widthScaler = this.widthScaler
+    var heightScaler = this.heightScaler
+
+
     this.svg = d3
       .select("#Map")
       .append("svg")
@@ -72,9 +89,9 @@ class RouteMap {
     this.g = this.svg.append("g");
 
     // set up the zoom-in ability
-    const handleZoom = (e) => this.g.attr("transform", e.transform);
-    const zoom = d3.zoom().on("zoom", handleZoom);
-    d3.select("#Map").call(zoom);
+    // const handleZoom = (e) => this.g.attr("transform", e.transform);
+    // const zoom = d3.zoom().on("zoom", handleZoom);
+    // d3.select("#Map").call(zoom);
 
     this.links = this.mapData.links.map((l) => {
       const source = this.mapData.nodes.find((n) => n.id === l.source);
@@ -113,23 +130,22 @@ class RouteMap {
       .style("stroke-width", 2)
       .style("stroke", function (d) {
         if (d.task == RouteMap.TASK) {
-          return "red";
+          return RouteMap.TASKCOLOR;
         } else if (d.task == RouteMap.NONTASK) {
-          return "blue";
+          return RouteMap.NONTASKCOLOR;
         } else {
-          return "Chartreuse";
+          return RouteMap.SERVEDCOLOR;
         }
       })
       .on("mouseover", function (d) {
         d3.select(this).transition().duration(200).style("stroke-width", 10);
+        // if the path is not a task, then the tooltip will not show up
         if (d.srcElement.__data__.property != undefined) {
           d3.select(".tooltip")
             .style("opacity", 0.9)
             .html(RouteMap.pretty(d.srcElement.__data__.property))
             .style("left", d.pageX + "px")
-            // .html("<p> source id: " + d.srcElement.__data__.source['id'] + "</p>"
-            //     + "<p> target id: " + d.srcElement.__data__.target['id'] + "</p>").style("left", (d.pageX) + "px")
-            .style("top", d.pageY - 30 + "px");
+            .style("top", d.pageY - margin + "px");
         }
       })
       .on("mouseout", function (d) {
@@ -176,6 +192,57 @@ class RouteMap {
       .attr("y", this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET)
       .attr("width", 40)
       .attr("height", 40);
+    
+    // this.capacity = this.g.append("rect")
+    //                   .attr("x", this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET)
+    //                   .attr("y", this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET)
+    //                   .attr("width", 20)
+    //                   .attr("height", 10)
+    //                   .style("fill", 'red')
+
+      // this.capacity = this.g.append("path")
+      //                     .attr("transform", "translate(" + (this.widthScaler(initialPosition.sourceX) + RouteMap.OFFSET) + ", " + (this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET) + ")")
+      //                     .attr("d", d3.arc()
+      //                                   .innerRadius(8)
+      //                                   .outerRadius(12)
+      //                                   .startAngle(3.14)
+      //                                   .endAngle(6.28)
+      //                                   )
+      //                     .attr("stroke", "black")
+      //                     .attr("fill", "red")
+      var fakeData = [100, 0]
+      let capacity = this.svg.append("g")
+                        .attr("class", "capacity")
+                        .attr("transform", "translate(" + (this.widthScaler(initialPosition.sourceX) + RouteMap.OFFSET) + ", " 
+                                                        + (this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET) + ")")
+      var pie = d3.pie()
+      var arc = d3.arc()
+                  .innerRadius(8)
+                  .outerRadius(12)
+      
+      var arcs = capacity.selectAll("arc")
+                  .data(pie(fakeData))
+                  .enter()
+                  .append("g")
+
+      arcs.append("path")
+          .attr("fill", (data, i) => {
+            let value = data.data;
+            return d3.schemeSet3[i];
+          })
+          .attr("d", arc)
+
+      capacity.data(fakeData)
+              .append('text')
+              .style("font-size", "5px")
+              .attr("dy", ".25em")
+              .attr("dx", "-1.2em")
+              .text(function(d){
+          
+                return d + "%"
+              })
+      
+      
 
     this.nodes
       .append("text")
@@ -190,6 +257,40 @@ class RouteMap {
           return d.id;
         }
       });
+
+    const legendData = ["Task", "Non-task", "Served", "Task Not Completed"]
+    
+    // add a legend to the Map
+    this.legend = this.svg.selectAll(".legend")
+                      .data(legendData)
+                      .enter()
+                      .append('g')
+                      .attr('class', 'legend')
+                      .attr("transform", function(d, i){
+                        return "translate(" + widthScaler(i++ * 1.1) + "," + (heightScaler(maxY) + margin) + ")";
+                      })
+    this.legend.append("text").text(function(d){ return d;})
+                .attr("transform", "translate(15, 9)")
+    this.legend.append("line")
+                .attr("x1", 0)
+                .attr("x2", 12)
+                .attr("y1", 4)
+                .attr("y2", 4)
+                .style("stroke-width", 2)
+                .style("stroke", function(d){
+                  if(d == 'Non-task'){
+                    return RouteMap.NONTASKCOLOR
+                  } else if(d == 'Served'){
+                    return RouteMap.SERVEDCOLOR
+                  } else{
+                    return RouteMap.TASKCOLOR
+                  }
+                })
+                .attr("stroke-dasharray", function (d) {
+                  if (d == 'Task Not Completed') {
+                    return 4;
+                  }
+                })
   }
 
   // Move the truck to previous point
@@ -288,9 +389,9 @@ class RouteMap {
         .duration(500)
         .style("stroke", function () {
           if (targetPoint.serve == RouteMap.TASK) {
-            return "Chartreuse";
+            return RouteMap.SERVEDCOLOR;
           } else {
-            return "red";
+            return RouteMap.TASKCOLOR;
           }
         })
         .style("stroke-width", 2)
