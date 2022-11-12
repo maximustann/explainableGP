@@ -32,6 +32,10 @@ class RouteMap {
   }
 
   // The following functions return static values
+  static get DEPOT(){
+    return 0
+  }
+
   static get TASK() {
     return 0;
   }
@@ -109,7 +113,7 @@ class RouteMap {
           link.target.id == bind.target
         ) {
           link["property"] = bind;
-          link["RQ"] = bind["RQ"];
+          link["FULL"] = bind["FULL"];
         }
       }
     }
@@ -406,18 +410,25 @@ class RouteMap {
       );
       // console.log(targetPosition.remainingCapacity)
 
-      // console.log(this.capacityRemaining, targetPosition.RQ)
-      if (targetPosition.remainingCapacity == undefined) {
+      // console.log(this.capacityRemaining, targetPosition.FULL)
+      if (targetPosition.remainingCapacity == undefined && targetPoint.target != RouteMap.DEPOT) {
         var capacityData = [
           this.capacityRemaining,
           100 - this.capacityRemaining,
         ];
+      } else if(targetPosition.remainingCapacity == undefined && targetPoint.target == RouteMap.DEPOT){
+          this.capacityRemaining = 100
+          var capacityData = [
+            this.capacityRemaining,
+            100 - this.capacityRemaining
+          ]
       } else {
-        this.capacityRemaining -= targetPosition.remainingCapacity;
-        var capacityData = [
-          this.capacityRemaining,
-          100 - this.capacityRemaining,
-        ];
+          this.capacityRemaining = targetPosition.remainingCapacity;
+            var capacityData = [
+              this.capacityRemaining,
+              100 - this.capacityRemaining,
+            ];
+        
       }
 
       // console.log(capacityData)
@@ -513,7 +524,7 @@ class RouteMap {
           targetX: obj.target["x"],
           targetY: obj.target["y"],
           task: obj.task,
-          remainingCapacity: obj.RQ,
+          remainingCapacity: obj.FULL,
         };
       }
 
@@ -524,7 +535,7 @@ class RouteMap {
           targetX: obj.source["x"],
           targetY: obj.source["y"],
           task: obj.task,
-          remainingCapacity: obj.RQ,
+          remainingCapacity: obj.FULL,
         };
       }
     }
@@ -551,8 +562,8 @@ class RouteMap {
       bindData["DEM"] +
       ", FRT" +
       bindData["FRT"] +
-      ", RQ:" +
-      bindData["RQ"] +
+      ", FULL:" +
+      bindData["FULL"] +
       ", SC:" +
       bindData["SC"] +
       "</p>";
