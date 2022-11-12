@@ -1,3 +1,4 @@
 slice.py
 venv/
 generateData.py
+__pycache__/

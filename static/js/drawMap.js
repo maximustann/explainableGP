@@ -8,6 +8,7 @@ class RouteMap {
     this.divHeight = divHeight;
     this.path = 0;
     this.edge = 0;
+    this.capacityRemaining = 100;
 
     // calculate the max X and Y
     const maxValues = this.calculateMax();
@@ -15,7 +16,7 @@ class RouteMap {
     this.maxY = maxValues[1];
 
     // define the margins, canvas width and height
-    this.margin = 30
+    this.margin = 30;
     this.width = this.divWidth - this.margin - this.margin;
     this.height = 500 - this.margin - this.margin;
 
@@ -55,24 +56,23 @@ class RouteMap {
     return 20;
   }
 
-  static get TASKCOLOR(){
-    return 'red'
+  static get TASKCOLOR() {
+    return "red";
   }
 
-  static get NONTASKCOLOR(){
-    return 'blue'
+  static get NONTASKCOLOR() {
+    return "blue";
   }
-  static get SERVEDCOLOR(){
-    return 'Chartreuse'
+  static get SERVEDCOLOR() {
+    return "Chartreuse";
   }
 
   // draw map
   drawMap() {
-    const margin = this.margin
-    const maxY = this.maxY
-    var widthScaler = this.widthScaler
-    var heightScaler = this.heightScaler
-
+    const margin = this.margin;
+    const maxY = this.maxY;
+    var widthScaler = this.widthScaler;
+    var heightScaler = this.heightScaler;
 
     this.svg = d3
       .select("#Map")
@@ -109,6 +109,7 @@ class RouteMap {
           link.target.id == bind.target
         ) {
           link["property"] = bind;
+          link["RQ"] = bind["RQ"];
         }
       }
     }
@@ -187,62 +188,57 @@ class RouteMap {
 
     this.truck = this.g
       .append("image")
+      .attr("class", "image")
       .attr("xlink:href", "../static/image/truck.png")
-      .attr("x", this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET)
-      .attr("y", this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET)
+      .attr(
+        "transform",
+        "translate(" +
+          (this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET) +
+          ", " +
+          (this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET) +
+          ")"
+      )
       .attr("width", 40)
       .attr("height", 40);
-    
-    // this.capacity = this.g.append("rect")
-    //                   .attr("x", this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET)
-    //                   .attr("y", this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET)
-    //                   .attr("width", 20)
-    //                   .attr("height", 10)
-    //                   .style("fill", 'red')
 
-      // this.capacity = this.g.append("path")
-      //                     .attr("transform", "translate(" + (this.widthScaler(initialPosition.sourceX) + RouteMap.OFFSET) + ", " + (this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET) + ")")
-      //                     .attr("d", d3.arc()
-      //                                   .innerRadius(8)
-      //                                   .outerRadius(12)
-      //                                   .startAngle(3.14)
-      //                                   .endAngle(6.28)
-      //                                   )
-      //                     .attr("stroke", "black")
-      //                     .attr("fill", "red")
-      var fakeData = [100, 0]
-      let capacity = this.svg.append("g")
-                        .attr("class", "capacity")
-                        .attr("transform", "translate(" + (this.widthScaler(initialPosition.sourceX) + RouteMap.OFFSET) + ", " 
-                                                        + (this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET) + ")")
-      var pie = d3.pie()
-      var arc = d3.arc()
-                  .innerRadius(8)
-                  .outerRadius(12)
-      
-      var arcs = capacity.selectAll("arc")
-                  .data(pie(fakeData))
-                  .enter()
-                  .append("g")
+    var capacityData = [100, 0];
+    this.capacity = this.svg
+      .append("g")
+      .attr("class", "capacity")
+      .attr(
+        "transform",
+        "translate(" +
+          (this.widthScaler(initialPosition.sourceX) - RouteMap.OFFSET) +
+          ", " +
+          (this.heightScaler(initialPosition.sourceY) - RouteMap.OFFSET) +
+          ")"
+      );
+    let pie = d3.pie();
+    let arc = d3.arc().innerRadius(8).outerRadius(12);
 
-      arcs.append("path")
-          .attr("fill", (data, i) => {
-            let value = data.data;
-            return d3.schemeSet3[i];
-          })
-          .attr("d", arc)
+    this.arcs = this.capacity
+      .selectAll("arc")
+      .data(pie(capacityData))
+      .enter()
+      .append("g");
 
-      capacity.data(fakeData)
-              .append('text')
-              .style("font-size", "5px")
-              .attr("dy", ".25em")
-              .attr("dx", "-1.2em")
-              .text(function(d){
-          
-                return d + "%"
-              })
-      
-      
+    this.arcs
+      .append("path")
+      .attr("fill", (data, i) => {
+        let value = data.data;
+        return d3.schemeSet3[i];
+      })
+      .attr("d", arc);
+
+    this.capacity
+      .data(capacityData)
+      .append("text")
+      .style("font-size", "5px")
+      .attr("dy", ".25em")
+      .attr("dx", "-1.2em")
+      .text(function (d) {
+        return d + "%";
+      });
 
     this.nodes
       .append("text")
@@ -258,39 +254,82 @@ class RouteMap {
         }
       });
 
-    const legendData = ["Task", "Non-task", "Served", "Task Not Completed"]
-    
+    const legendData = ["Task", "Non-task", "Served", "Task Not Completed"];
+
     // add a legend to the Map
-    this.legend = this.svg.selectAll(".legend")
-                      .data(legendData)
-                      .enter()
-                      .append('g')
-                      .attr('class', 'legend')
-                      .attr("transform", function(d, i){
-                        return "translate(" + widthScaler(i++ * 1.1) + "," + (heightScaler(maxY) + margin) + ")";
-                      })
-    this.legend.append("text").text(function(d){ return d;})
-                .attr("transform", "translate(15, 9)")
-    this.legend.append("line")
-                .attr("x1", 0)
-                .attr("x2", 12)
-                .attr("y1", 4)
-                .attr("y2", 4)
-                .style("stroke-width", 2)
-                .style("stroke", function(d){
-                  if(d == 'Non-task'){
-                    return RouteMap.NONTASKCOLOR
-                  } else if(d == 'Served'){
-                    return RouteMap.SERVEDCOLOR
-                  } else{
-                    return RouteMap.TASKCOLOR
-                  }
-                })
-                .attr("stroke-dasharray", function (d) {
-                  if (d == 'Task Not Completed') {
-                    return 4;
-                  }
-                })
+    this.legend = this.svg
+      .selectAll(".legend")
+      .data(legendData)
+      .enter()
+      .append("g")
+      .attr("class", "legend")
+      .attr("transform", function (d, i) {
+        return (
+          "translate(" +
+          widthScaler(i++) +
+          "," +
+          (heightScaler(maxY) + margin) +
+          ")"
+        );
+      });
+    this.legend
+      .append("text")
+      .text(function (d) {
+        return d;
+      })
+      .attr("transform", "translate(15, 9)")
+      .style('font-size', "10px");
+
+    this.legend
+      .append("line")
+      .attr("x1", 0)
+      .attr("x2", 12)
+      .attr("y1", 4)
+      .attr("y2", 4)
+      .style("stroke-width", 2)
+      .style("stroke", function (d) {
+        if (d == "Non-task") {
+          return RouteMap.NONTASKCOLOR;
+        } else if (d == "Served") {
+          return RouteMap.SERVEDCOLOR;
+        } else {
+          return RouteMap.TASKCOLOR;
+        }
+      })
+      .attr("stroke-dasharray", function (d) {
+        if (d == "Task Not Completed") {
+          return 4;
+        }
+      });
+
+      let capacityLegend = this.svg.append('g')
+          .attr('class', 'capacityLegend')
+          .attr("transform", "translate(" + widthScaler(legendData.length * 1.2) + "," + (heightScaler(maxY) + margin) + ")")
+          .selectAll('arc')
+          .data(pie(capacityData))
+          .enter()
+          .append("g")
+          .append('path')
+          .attr("fill", (data, i) => {
+            let value = data.data;
+            return d3.schemeSet3[i];
+          })
+          .attr("d", arc);
+
+        this.svg.select(".capacityLegend")
+              .append("text")
+          .style("font-size", "5px")
+          .attr("dy", ".25em")
+          .attr("dx", "-1.2em")
+          .text('100%')
+        
+          this.svg.select(".capacityLegend")
+              .append("text")
+              .text("Remaining Capacity")
+              .attr("transform", "translate(15, 9)")
+              .style('font-size', "10px");
+
+
   }
 
   // Move the truck to previous point
@@ -365,15 +404,73 @@ class RouteMap {
         targetPoint.source,
         targetPoint.target
       );
+      // console.log(targetPosition.remainingCapacity)
+
+      // console.log(this.capacityRemaining, targetPosition.RQ)
+      if (targetPosition.remainingCapacity == undefined) {
+        var capacityData = [
+          this.capacityRemaining,
+          100 - this.capacityRemaining,
+        ];
+      } else {
+        this.capacityRemaining -= targetPosition.remainingCapacity;
+        var capacityData = [
+          this.capacityRemaining,
+          100 - this.capacityRemaining,
+        ];
+      }
+
+      // console.log(capacityData)
 
       // wait until the animation finishes
       await d3
-        .select("image")
+        .selectAll(".image, .capacity")
         .transition()
         .duration(500)
-        .attr("x", this.widthScaler(targetPosition.targetX) - RouteMap.OFFSET)
-        .attr("y", this.heightScaler(targetPosition.targetY) - RouteMap.OFFSET)
+        .attr(
+          "transform",
+          "translate(" +
+            (this.widthScaler(targetPosition.targetX) - RouteMap.OFFSET) +
+            ", " +
+            (this.heightScaler(targetPosition.targetY) - RouteMap.OFFSET) +
+            ")"
+        )
         .end();
+
+      let pie = d3.pie();
+      let arc = d3.arc().innerRadius(8).outerRadius(12);
+
+      this.arcs.remove();
+      this.arcs = this.arcs = this.capacity
+        .selectAll("arc")
+        .data(pie(capacityData))
+        .enter()
+        .append("g");
+
+      this.arcs
+        .append("path")
+        .attr("fill", (data, i) => {
+          let value = data.data;
+          return d3.schemeSet3[i];
+        })
+        .attr("d", arc);
+      // .append("g")
+
+      // arcs.append("path")
+      //     .attr("fill", (data, i) => {
+      //       let value = data.data;
+      //       return d3.schemeSet3[i];
+      //     })
+      //     .attr("d", arc)
+
+      this.capacity.select("text")
+        .data(capacityData)
+        .style("font-size", "5px")
+        .attr("dy", ".25em")
+        .attr("dx", "-1.2em")
+        .text(function (d) {
+          return d + "%";
+        });
 
       this.g
         .selectAll("line.link")
@@ -416,6 +513,7 @@ class RouteMap {
           targetX: obj.target["x"],
           targetY: obj.target["y"],
           task: obj.task,
+          remainingCapacity: obj.RQ,
         };
       }
 
@@ -426,6 +524,7 @@ class RouteMap {
           targetX: obj.source["x"],
           targetY: obj.source["y"],
           task: obj.task,
+          remainingCapacity: obj.RQ,
         };
       }
     }

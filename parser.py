@@ -213,11 +213,11 @@ if __name__ == '__main__':
     }
 
 
-    equationDataFile = open('./static/json/eq2Data/sample.json')
+    equationDataFile = open('./static/json/eq2Data/table.json')
     eqData = json.load(equationDataFile)
     # print(eqData)
 
-    equationFile = open('./static/json/eq2Data/eq2.json')
+    equationFile = open('./static/json/eq2Data/equation.json')
     eq = json.load(equationFile)
     equation = eq['equation']
     operators = eq['operators']
@@ -268,6 +268,6 @@ if __name__ == '__main__':
     # dataFile['dataList'] = dataList
     
 
-    with open('./static/json/eq2Data/eq2_data.json', 'w') as outfile:
+    with open('./static/json/eq2Data/tree.json', 'w') as outfile:
         json.dump(dataFile, outfile)
 

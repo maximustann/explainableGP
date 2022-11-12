@@ -8,28 +8,28 @@ app = Flask(__name__)
 
 @app.route('/', methods =['POST', 'GET'])
 def home():
-    equationFile = open('./static/json/eq2Data/eq2.json')
-    dataFile = open('./static/json/eq2Data/eq2_data.json')
-    mapFile = open('./static/json/eq2Data/viz2.json')
-    tableFile = open('./static/json/eq2Data/sample.json')
-    pathFile = open('./static/json/eq2Data/pathE.json')
+    equationFile = open('./static/json/eq2Data/equation.json')
+    treeFile = open('./static/json/eq2Data/tree.json')
+    mapFile = open('./static/json/eq2Data/map.json')
+    tableFile = open('./static/json/eq2Data/table.json')
+    pathFile = open('./static/json/eq2Data/path.json')
     bindFile = open('./static/json/eq2Data/bind.json')
     pathData = json.load(pathFile)
     tableData = json.load(tableFile)
     eq = json.load(equationFile)
-    eq1Data = json.load(dataFile)
+    treeData = json.load(treeFile)
     mapData = json.load(mapFile)
     bindData = json.load(bindFile)
     equation = eq['equation']
     operators = eq['operators']
     terminals = eq['terminals']
-    total_leaf_nodes = eq1Data['num_of_leaf_nodes']
+    total_leaf_nodes = treeData['num_of_leaf_nodes']
     return render_template('index.html', 
                                     totalData = 
                                         {
                                             "pathData": pathData,
                                             "tableData": tableData,
-                                            "tree": eq1Data['dataList'], 
+                                            "tree": treeData['dataList'], 
                                             "total_leaf_nodes": total_leaf_nodes, 
                                             'previous_s_expression': equation,
                                             'previous_terminals': terminals,

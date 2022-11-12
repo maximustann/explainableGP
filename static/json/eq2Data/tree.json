@@ -1,0 +1,461 @@
+{
+  "num_of_leaf_nodes": 8,
+  "dataList": [
+    {
+      "name": "+",
+      "output": 11.153846153846153,
+      "rank": 10,
+      "children": [
+        {
+          "name": "-",
+          "output": 2,
+          "rank": 3,
+          "children": [
+            { "name": "CFH", "output": 11, "rank": 9 },
+            {
+              "name": "max",
+              "output": 9,
+              "rank": 6,
+              "children": [
+                { "name": "SC", "output": 9, "rank": 6 },
+                { "name": "CR", "output": 0, "rank": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 9.153846153846153,
+          "rank": 8,
+          "children": [
+            {
+              "name": "min",
+              "output": 1.3076923076923077,
+              "rank": 1,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 21,
+                  "rank": 14,
+                  "children": [
+                    { "name": "CTD", "output": 14, "rank": 12 },
+                    { "name": "RQ", "output": 7, "rank": 4 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 1.3076923076923077,
+                  "rank": 1,
+                  "children": [
+                    { "name": "DEM", "output": 17, "rank": 13 },
+                    { "name": "CFD", "output": 13, "rank": 11 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 7, "rank": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": 4.588235294117647,
+      "rank": 4,
+      "children": [
+        {
+          "name": "-",
+          "output": -2,
+          "rank": 0,
+          "children": [
+            { "name": "CFH", "output": 13, "rank": 9 },
+            {
+              "name": "max",
+              "output": 15,
+              "rank": 11,
+              "children": [
+                { "name": "SC", "output": 14, "rank": 10 },
+                { "name": "CR", "output": 15, "rank": 11 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 6.588235294117647,
+          "rank": 5,
+          "children": [
+            {
+              "name": "min",
+              "output": 0.4117647058823529,
+              "rank": 2,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 7,
+                  "rank": 6,
+                  "children": [
+                    { "name": "CTD", "output": 7, "rank": 6 },
+                    { "name": "RQ", "output": 0, "rank": 1 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 0.4117647058823529,
+                  "rank": 2,
+                  "children": [
+                    { "name": "DEM", "output": 7, "rank": 6 },
+                    { "name": "CFD", "output": 17, "rank": 14 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 16, "rank": 13 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": -17.0,
+      "rank": 0,
+      "children": [
+        {
+          "name": "-",
+          "output": -17,
+          "rank": 0,
+          "children": [
+            { "name": "CFH", "output": 0, "rank": 2 },
+            {
+              "name": "max",
+              "output": 17,
+              "rank": 11,
+              "children": [
+                { "name": "SC", "output": 17, "rank": 11 },
+                { "name": "CR", "output": 0, "rank": 2 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 0.0,
+          "rank": 2,
+          "children": [
+            {
+              "name": "min",
+              "output": 0.5,
+              "rank": 7,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 20,
+                  "rank": 13,
+                  "children": [
+                    { "name": "CTD", "output": 20, "rank": 13 },
+                    { "name": "RQ", "output": 0, "rank": 2 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 0.5,
+                  "rank": 7,
+                  "children": [
+                    { "name": "DEM", "output": 6, "rank": 9 },
+                    { "name": "CFD", "output": 12, "rank": 10 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 0, "rank": 2 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": 47.66666666666667,
+      "rank": 14,
+      "children": [
+        {
+          "name": "-",
+          "output": 1,
+          "rank": 1,
+          "children": [
+            { "name": "CFH", "output": 19, "rank": 12 },
+            {
+              "name": "max",
+              "output": 18,
+              "rank": 10,
+              "children": [
+                { "name": "SC", "output": 7, "rank": 5 },
+                { "name": "CR", "output": 18, "rank": 10 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 46.66666666666667,
+          "rank": 13,
+          "children": [
+            {
+              "name": "min",
+              "output": 3.3333333333333335,
+              "rank": 3,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 8,
+                  "rank": 6,
+                  "children": [
+                    { "name": "CTD", "output": 8, "rank": 6 },
+                    { "name": "RQ", "output": 0, "rank": 0 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 3.3333333333333335,
+                  "rank": 3,
+                  "children": [
+                    { "name": "DEM", "output": 10, "rank": 8 },
+                    { "name": "CFD", "output": 3, "rank": 2 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 14, "rank": 9 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": 11.5,
+      "rank": 7,
+      "children": [
+        {
+          "name": "-",
+          "output": 5,
+          "rank": 4,
+          "children": [
+            { "name": "CFH", "output": 20, "rank": 14 },
+            {
+              "name": "max",
+              "output": 15,
+              "rank": 11,
+              "children": [
+                { "name": "SC", "output": 15, "rank": 11 },
+                { "name": "CR", "output": 0, "rank": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 6.5,
+          "rank": 6,
+          "children": [
+            {
+              "name": "min",
+              "output": 1.0833333333333333,
+              "rank": 1,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 15,
+                  "rank": 11,
+                  "children": [
+                    { "name": "CTD", "output": 3, "rank": 3 },
+                    { "name": "RQ", "output": 12, "rank": 8 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 1.0833333333333333,
+                  "rank": 1,
+                  "children": [
+                    { "name": "DEM", "output": 13, "rank": 10 },
+                    { "name": "CFD", "output": 12, "rank": 8 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 6, "rank": 5 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": 11.5,
+      "rank": 7,
+      "children": [
+        {
+          "name": "-",
+          "output": 5,
+          "rank": 4,
+          "children": [
+            { "name": "CFH", "output": 20, "rank": 14 },
+            {
+              "name": "max",
+              "output": 15,
+              "rank": 11,
+              "children": [
+                { "name": "SC", "output": 15, "rank": 11 },
+                { "name": "CR", "output": 0, "rank": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 6.5,
+          "rank": 6,
+          "children": [
+            {
+              "name": "min",
+              "output": 1.0833333333333333,
+              "rank": 1,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 15,
+                  "rank": 11,
+                  "children": [
+                    { "name": "CTD", "output": 3, "rank": 3 },
+                    { "name": "RQ", "output": 12, "rank": 8 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 1.0833333333333333,
+                  "rank": 1,
+                  "children": [
+                    { "name": "DEM", "output": 13, "rank": 10 },
+                    { "name": "CFD", "output": 12, "rank": 8 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 6, "rank": 5 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": -8.857142857142858,
+      "rank": 1,
+      "children": [
+        {
+          "name": "-",
+          "output": -11,
+          "rank": 0,
+          "children": [
+            { "name": "CFH", "output": 4, "rank": 7 },
+            {
+              "name": "max",
+              "output": 15,
+              "rank": 10,
+              "children": [
+                { "name": "SC", "output": 3, "rank": 6 },
+                { "name": "CR", "output": 15, "rank": 10 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 2.142857142857143,
+          "rank": 5,
+          "children": [
+            {
+              "name": "min",
+              "output": 1.0714285714285714,
+              "rank": 2,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 26,
+                  "rank": 14,
+                  "children": [
+                    { "name": "CTD", "output": 8, "rank": 8 },
+                    { "name": "RQ", "output": 18, "rank": 13 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 1.0714285714285714,
+                  "rank": 2,
+                  "children": [
+                    { "name": "DEM", "output": 15, "rank": 10 },
+                    { "name": "CFD", "output": 14, "rank": 9 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 2, "rank": 4 }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "+",
+      "output": 0,
+      "rank": 0,
+      "children": [
+        {
+          "name": "-",
+          "output": 0,
+          "rank": 0,
+          "children": [
+            { "name": "CFH", "output": 0, "rank": 0 },
+            {
+              "name": "max",
+              "output": 0,
+              "rank": 0,
+              "children": [
+                { "name": "SC", "output": 0, "rank": 0 },
+                { "name": "CR", "output": 0, "rank": 0 }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "*",
+          "output": 0,
+          "rank": 0,
+          "children": [
+            {
+              "name": "min",
+              "output": 0,
+              "rank": 0,
+              "children": [
+                {
+                  "name": "+",
+                  "output": 0,
+                  "rank": 0,
+                  "children": [
+                    { "name": "CTD", "output": 0, "rank": 0 },
+                    { "name": "RQ", "output": 0, "rank": 0 }
+                  ]
+                },
+                {
+                  "name": "/",
+                  "output": 1,
+                  "rank": 14,
+                  "children": [
+                    { "name": "DEM", "output": 0, "rank": 0 },
+                    { "name": "CFD", "output": 0, "rank": 0 }
+                  ]
+                }
+              ]
+            },
+            { "name": "FRT", "output": 0, "rank": 0 }
+          ]
+        }
+      ]
+    }
+  ]
+}
