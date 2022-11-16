@@ -8,6 +8,7 @@
       "CR": 0,
       "CFD": 13,
       "DEM": 17,
+      "PASSCAP": 0,
       "DecisionSituationN": 0,
       "source": 17,
       "target": 3
@@ -21,6 +22,7 @@
       "CR": 15,
       "CFD": 17,
       "DEM": 7,
+      "PASSCAP": 0.2,
       "DecisionSituationN": 1,
       "source": 24,
       "target": 28
@@ -34,6 +36,7 @@
       "CR": 0,
       "CFD": 12,
       "DEM": 6,
+      "PASSCAP": 0,
       "DecisionSituationN": 2,
       "source": 3,
       "target": 33
@@ -48,6 +51,7 @@
       "CR": 18,
       "CFD": 3,
       "DEM": 10,
+      "PASSCAP": 0,
       "DecisionSituationN": 3,
       "source": 17,
       "target": 27
@@ -62,6 +66,7 @@
       "CR": 0,
       "CFD": 12,
       "DEM": 13,
+      "PASSCAP": 0,
       "DecisionSituationN": 5,
       "source": 7,
       "target": 13
@@ -75,6 +80,7 @@
       "CR": 15,
       "CFD": 14,
       "DEM": 15,
+      "PASSCAP": 0.4,
       "DecisionSituationN": 6,
       "source": 36,
       "target": 5
