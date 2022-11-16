@@ -385,7 +385,9 @@ class RouteMap {
           return heightScaler(d.target["y"] + 0.2);
         }
       })
-      .attr("fill", "lightgrey");
+      .attr("fill", "lightgrey")
+      .attr("stroke", "darkgrey")
+      .attr("stroke-width", "2px")
 
     // console.log(this.links)
     this.progress = this.svg
