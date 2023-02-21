@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags for IEEE Xplore immersive article -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+    content="An interactive article on using genetic algorithms to solve the 8-Queens problem. Learn how the choice of representation and operators affects your genetic algorithm.">
+  <meta charset="utf8">
+  <title>Bare Demo of Immersive Articles for the IEEE Computational Intelligence Magazine
+  </title>
+
+  <!-- Stylesheet for IEEE Xplore immersive article -->
+  <link rel="stylesheet" href="fonts/stylesheet.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- MathJax javascript library and implementation file/s -->
+  <script type="text/javascript" async
+    src="https://xploreqa.ieee.org/xploreAssets/MathJax-274/MathJax.js?config=default">
+    </script>
+
+  <!-- Example chessboard immersive app -->
+  <!-- <link rel="stylesheet" href="chessboard/chessboard.css"> -->
+  <link href="static/css/styles.css" rel="stylesheet">
+  <link href="static/css/treeView.css" rel="stylesheet">
+  <link href="css/mapView.css" rel="stylesheet">
+  <link href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  crossorigin="anonymous"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- <script type="text/javascript" src="chessboard/chessboard.js"></script> -->
+  <script type="text/javascript" src="static/js/data5.js"></script>
+  <script type="text/javascript" src="static/js/data6.js"></script>
+  <script type="text/javascript" src="static/js/drawMap.js"></script>
+  <script type="text/javascript" src="static/js/drawTree.js"></script>
+  <script type="text/javascript" src="static/js/scripts.js"></script>
+  <script type="text/javascript" src="static/js/readLocalStorage.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Article with large top spacing -->
+  <article class="mt-lg">
+    <header>
+      <!-- Page container -->
+      <div class="container">
+        <!-- Page title -->
+        <h1>
+          Bare Demo of Immersive Articles for the IEEE Computational Intelligence Magazine
+        </h1>
+        <!-- Subheading -->
+        <p class="subhead">
+          This and the index.html file define the components of your paper [title, text, heads, etc.].
+          <b>CRITICAL:</b> Do Not Use Symbols, Special Characters, Footnotes, or Math in Paper Title or Abstract.
+        </p>
+        <!-- Header info general wrapper -->
+        <div class="header-info">
+          <!-- Header left info box -->
+          <div class="header-left box">
+            <!-- Header authors section -->
+            <div class="header-authors">
+              <h2>Authors</h2>
+              <ul>
+                <li>Alexander Dockhorn | Leibniz University, Hannover</li>
+                <li>John Doe | IEEE, New York</li>
+                <li>Jane Doe | IEEE, New York</li>
+              </ul>
+            </div>
+            <!-- Published info section -->
+            <div class="header-published">
+              <h2>Published</h2>
+              <p>Dec. 1, 2022</p>
+            </div>
+          </div>
+          <!-- Header legend section -->
+          <div class="header-legend">
+            <svg class="click-icon" data-name="Click"
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83.62 122.88">
+              <title>Click</title>
+              <path
+                d="M40.59,14.63a3.36,3.36,0,0,1-1,2.39l0,0a3.39,3.39,0,0,1-4.77,0,3.42,3.42,0,0,1-1-2.4V3.39A3.4,3.4,0,0,1,37.2,0a3.34,3.34,0,0,1,2.39,1,3.39,3.39,0,0,1,1,2.4V14.63Zm25,76.65a1.89,1.89,0,0,1,3.77,0V99.9a1.89,1.89,0,1,1-3.77,0V91.28ZM54.46,87.47a1.89,1.89,0,0,1,3.77,0V99.9a1.89,1.89,0,1,1-3.77,0V87.47Zm-28-7.63a1.92,1.92,0,0,1-.35-.23q-5.24-4.24-10.44-8.53a8.36,8.36,0,0,0-3.57-1.79,3.54,3.54,0,0,0-2,.09A2,2,0,0,0,9,70.49a6.9,6.9,0,0,0-.4,3.24,12.47,12.47,0,0,0,1.11,4,26.49,26.49,0,0,0,2.92,4.94l17.68,26.74a2.37,2.37,0,0,1,.36,1,15.28,15.28,0,0,0,1.87,6.4,2.89,2.89,0,0,0,2.57,1.46c9,0,18.62-.34,27.53,0a8.33,8.33,0,0,0,4.69-1.51,15,15,0,0,0,4.29-5l.34-.57c3.4-5.87,6.71-11.57,7-18.33L78.85,85l0-.33,0-1.84c.06-5.74.16-14.54-4.62-15.4H71.14c.09,2.46,0,5-.18,7.3-.08,1.36-.15,2.63-.15,3.79a2.31,2.31,0,1,1-4.62,0c0-1.1.08-2.52.17-4,.32-5.73.75-13.38-3.24-14.14h-3a2.2,2.2,0,0,1-.58-.07,69.07,69.07,0,0,1-.13,8.29c-.07,1.36-.15,2.63-.15,3.79a2.31,2.31,0,1,1-4.61,0c0-1.1.08-2.52.16-4,.33-5.73.76-13.38-3.24-14.14h-3a2,2,0,0,1-.6-.08V66a2.31,2.31,0,1,1-4.61,0V42c0-4-1.64-6.55-3.73-7.61a5.32,5.32,0,0,0-4.71-.06l-.1.06c-2.07,1-3.69,3.59-3.69,7.7v42a2.31,2.31,0,1,1-4.62,0V79.84Zm44.14-17a2.49,2.49,0,0,1,.61-.08h3.19a2.33,2.33,0,0,1,.53.06c8.73,1.4,8.61,12.65,8.52,20,0,3.4.14,6.78.18,10.17-.39,7.91-4,14.1-7.67,20.47l-.32.55A19.49,19.49,0,0,1,70,120.55a12.88,12.88,0,0,1-7.29,2.32H35.17a7.23,7.23,0,0,1-6.44-3.5,19,19,0,0,1-2.56-7.88L8.94,85.42A31,31,0,0,1,5.5,79.58,16.88,16.88,0,0,1,4,74a11.42,11.42,0,0,1,.8-5.42,6.54,6.54,0,0,1,3.55-3.49A8.05,8.05,0,0,1,13,64.76a13.19,13.19,0,0,1,5.61,2.77L26.45,74V42.09c0-6.1,2.73-10,6.22-11.82l.15-.06a9.81,9.81,0,0,1,4.33-1,10,10,0,0,1,4.49,1.07C45.16,32.06,47.91,36,47.91,42v7.6a2.41,2.41,0,0,1,.6-.08H51.7a2.33,2.33,0,0,1,.53.06c3.82.61,5.73,3.16,6.63,6.47a2.25,2.25,0,0,1,1.23-.36h3.18a2.26,2.26,0,0,1,.53.06c4.07.65,6,3.49,6.79,7.11ZM14.63,37A3.33,3.33,0,0,1,17,38a3.39,3.39,0,0,1-2.39,5.79H3.39a3.36,3.36,0,0,1-2.39-1A3.4,3.4,0,0,1,3.39,37ZM23,20.55a3.39,3.39,0,0,1-2.4,5.79,3.4,3.4,0,0,1-2.4-1l-7.91-7.94a3.42,3.42,0,0,1-1-2.4,3.39,3.39,0,0,1,5.79-2.4L23,20.55ZM59.2,43.81a3.41,3.41,0,0,1-3.4-3.4A3.41,3.41,0,0,1,59.2,37H70.43a3.35,3.35,0,0,1,2.4,1,3.4,3.4,0,0,1-2.4,5.79ZM55.62,24.74a3.39,3.39,0,0,1-4.8-4.8l7.91-8a3.39,3.39,0,0,1,4.8,4.8l-7.91,8Z" />
+            </svg>
+            <p>Indicates interactive elements</p>
+          </div>
+        </div>
+        <!-- Box of anchored links -->
+        <div class="contents box">
+          <h2>Contents:</h2>
+          <ul>
+            <li>
+              <a href="#introduction">Introduction</a>
+              <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            </li>
+            <li>
+              <a href="#easeofuse">Ease of Use</a>
+              <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            </li>
+            <li>
+              <a href="#commonmistakes">Some Common Mistakes</a>
+              <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            </li>
+            <li>
+              <a href="#authors">Authors and Affiliations</a>
+              <span class="separator">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            </li>
+            <li>
+              <a href="#hints">Hints and General Advice</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content container with large top spacing -->
+    <div class="container mt-lg">
+      <!-- Anchor ID -->
+      <section id="introduction">
+        <!-- Section title -->
+        <h2>I. Introduction</h2>
+        <p>
+          This demo file is intended to serve as a "starter file" for IEEE Computational Intelligence
+          Magazine papers produced under html using interactive.html version 0.1 and later.
+          I wish you the best of success.
+        </p>
+        <p style="text-align: right">
+          Alexander Dockhorn<br>
+          December 1, 2022
+        </p>
+      </section>
+
+      <section id="easeofuse">
+      <h2>II. Ease of Use</h2>
+
+        <h3>Maintaining the Integrity of the Specifications</h3>
+          <p id="maintainingintegrity">
+          The index.html file is used to format your interactive paper and style the text. All margins,
+          column widths, line spaces, and text fonts are prescribed; please do not
+          alter them. You may note peculiarities. For example, the limited width of the article. This measurement
+          and others are deliberate, using specifications that anticipate your paper
+          as one part of the entire computational intelligence magazine and its online pendant on IEEE Xplore,
+          and not as an independent document. Please do not revise any of the current designations.
+        </p>
+
+        <h3>Prepare Your Paper Before Styling</h3>
+        <p id="Prepare">
+          Before you begin to format your paper, first write and save the content as a
+          separate text file. Complete all content and organizational editing before
+          formatting. Please note subsections <a href="#Abbreviations">Abbrevations and Acronyms</a> to
+          <a href="#SCM">Some Common Mistakes</a> below for more information on
+          proofreading, spelling and grammar.
+        </p>
+
+        <p>
+          Keep your text and graphic files separate until after the text has been
+          formatted and styled. Do not number text heads, this will be done during the
+          transfer to IEEEXplore for you.
+        </p>
+
+
+      <h3>Abbreviations and Acronyms</h3>
+      <p id="Abbreviations">
+        Define abbreviations and acronyms the first time they are used in the text,
+        even after they have been defined in the abstract. Abbreviations such as
+        IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use
+        abbreviations in the title or heads unless they are unavoidable.
+      </p>
+
+      <h3>Units</h3>
+      <ul id="Units">
+        <li> Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as "3.5-inch disk drive".</li>
+        <li> Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.</li>
+        <li class="inline-math"> Do not mix complete spellings and abbreviations of units: $$Wb/m^2$$ or "webers per square meter", not $$webers/m^2$$. Spell out units when they appear in text: ". . . a few henries", not ". . . a few H".</li>
+        <li> Use a zero before decimal points: "0.25", not ".25". </li>
+        <li class="inline-math"> Use $$cm^3$$, not $$cc$$.</li>
+      </ul>
+
+      <h3>Equations</h3>
+      <p id="Equations" class="inline-math">
+        The interactive article does not require to number equations, however they can be
+        linked using the tag &lta href="#id"&gt &lt/a&gt and a corresponding id of the element to be linked.
+        To make your equations more compact, you may use the solidus (~/~), the exp function, or
+        appropriate exponents. Italicize Roman symbols for quantities and variables,
+        but not Greek symbols. Use a long dash rather than a hyphen for a minus
+        sign. Punctuate equations with commas or periods when they are part of a
+        sentence, as in: $$a+b=\gamma$$.
+      </p>
+
+      <p class="inline-math tex2jax_ignore">
+        Be sure that the symbols in your equation have been defined before or immediately following
+        the equation. To define inline equations you can surround them with double-$ symbol as in $$1+1=2$$
+        and add the 'class="inline-math' to the surrounding tags.
+      </p>
+
+
+      <h3>Figures and Tables</h3>
+      <p id="FiguresTables">
+        Place figures and tables close to the paragraph in which they are discussed.
+        Captions should be below the figures and tables.
+        Insert figures and tables after they are cited in the text.
+        Use the abbreviation "Fig. 1", even at the beginning of a sentence.
+      </p>
+
+
+      <div class="formula-wrapper">
+        <table class="formula" style="margin: auto auto">
+          <tbody>
+          <tr>
+            <th style="width: 150px">Column 1</th>
+            <th style="width: 250px; text-align: center">Column 2 of fixed width</th>
+            <th style="width: 250px; text-align: left">Column 3 aligned left</th>
+          </tr>
+          <tr>
+            <td>Data 1,1</td>
+            <td style="text-align:center">Data 1,2</td>
+            <td style="text-align:center">a very very very very very long centered text</td>
+          </tr>
+          <tr>
+            <td>$$1\times 1 = 1$$</td>
+            <td style="text-align:center">$$\pi$$</td>
+            <td style="text-align:right">$$\binom{n}{k} =\prod _{j=1}^{k}{\frac {n+1-j}{j}}$$</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="caption">
+          <b>Table 1:</b> This is an example of a table caption.
+        </div>
+      </div>
+
+      <div class="static">
+        <img src="img/fig1.png" alt="Alternative text in case the image cannot be loaded." style="margin: auto auto; width: max-content; display: block"/>
+        <div class="caption"><b>Figure 1:</b> Example of a figure caption.</div>
+      </div>
+
+      <p class="inline-math">
+        <b>Figure Labels:</b> Use words rather than symbols or abbreviations
+        when writing Figure axis labels to avoid confusing the reader. As an example, write the quantity
+        "Magnetization", or "Magnetization, $$M$$", not just "$$M$$". If including
+        units in the label, present them within parentheses. Do not label axes only
+        with units. In the example, write "Magnetization ($$A/m$$)" or "Magnetization
+        $$\{A[m(1)]\}$$", not just "$$A/m$$". Do not label axes with a ratio of
+        quantities and units. For example, write "Temperature ($$K$$)", not
+        "Temperature/$$K$$".
+      </p>
+
+      <h3>Interactive Figures and Code</h3>
+      <p id="InteractiveCode">
+        Note, that in contrast to classical papers,
+        the web article can include animations, videos, sounds, etc..
+        Due to technical constraints, it will not be possible to embed iframes!
+      </p>
+
+      <p>
+        Finally, you can freely use javascript libraries as long as they can
+        be included self-contained in the files you submit. Meaning, scripts cannot be
+        imported using an url. This should ensure a consistent presentation of the
+        article. Interactive components can be embedded as figure. and should be formatted as such.
+        Libraries such as d3.js [<a href="#ref_1">1</a>] and three.js[<a href="#ref_2">2</a>]
+        may be helpful in producing interactive
+        visualizations, but do not let your own creativity be limited by these recommendations.
+      </p>
+
+      <div class="framed">
+        <div class="inside">
+          <div class="eyebrow">
+            This example shows how nearest neighbour algorithm decides the route. You can click on next to show the next path.
+          </div>
+
+          <!-- <div id="board-letsplay" style="width: 320px; margin: auto auto 10px;"></div> -->
+          <!-- <div class="caption"><b>Figure 2:</b><br> Example of an interactive figure: Introducing the 8-Queens problem. Drag and drop queens to change their position. Try to position all queens -->
+            <!-- such that no two queens share the same row, column, or diagonal. Queens that threaten each other -->
+            <!-- will be highlighted in red. In case you found a solution all queens will be highlighted in green.</div> -->
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-primary" onclick="
+                            resetDecisionSituationN()
+                            gpTreeData = findDecisionRow(treeData['dataList'])
+                            // loadTable()
+                            // drawGPTree.cleanCanvas()
+                            // drawGPTree.drawTree(gpTreeData)
+                            // previousSituation();
+                            // loadTable();
+                            // gpTreeData = findDecisionRow(tableData, totalData['tree']);
+                            // drawRouteMap.returnToPreviousPoint()
+                            // drawGPTree.cleanCanvas()
+                            // drawGPTree.drawTree(gpTreeData)
+                            drawRouteMap.resetCanvas()
+                            drawRouteMap.drawMap()
+          ">Reset</button>
+            <button type="button" class="btn btn-outline-primary" onclick="
+                drawRouteMap.driveForward(); 
+                // loadTable();
+                // gpTreeData = findDecisionRow(treeData['dataList']);
+                // drawGPTree.cleanCanvas()
+                // drawGPTree.drawTree(gpTreeData)
+                nextSituation();
+              ">Next</button>
+            </div>
+          <div class="card-body" id="Map" value="index"></div>
+          <!-- <div class="card-body" id="GPTreeView" value="index"></div>
+
+          <div class="table-responsive">
+          <table class="table table-sm" id="table" data-toolbar="#toolbar"
+          data-toggle="table" data-height="350">
+          <thead>
+              <tr>
+                  <th data-field="id">id</th>
+                  <th data-field="DecisionSituationN">Decision Situation</th>
+                  <th data-field="CR">CR</th>
+                  <th data-field="FRT">FRT</th>
+                  <th data-field="DEM">DEM</th>
+                  <th data-field="FUT">FUT</th>
+                  <th data-field="CFH">CFH</th>
+                  <th data-field="CFD">CFD</th>
+                  <th data-field="CTD">CTD</th>
+                  <th data-field="CTD">FULL</th>
+                  <th data-field="RQ">RQ</th>
+                  
+                  <th data-field="selectedRow">Selected Decision</th>
+              </tr>
+          </thead>
+          </table>
+          </div>
+          <!-- <script type="module" src="chessboard/chessboard_lets_play.js"></script> -->
+        </div>
+      </div>
+
+
+      <div class="framed">
+        <div class="inside">
+          <div class="row">
+            <div class="col-xl-6">
+              <div class="card-body" id="GPTreeView" value="index"></div>
+            </div>
+            <div class="col-xl-6">
+              <div id="toolbar">
+                <button id="button" class="btn btn-secondary" onclick="
+                  selectRow()
+                  ">Draw Selected Row</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-sm"
+                id="table" 
+                data-toolbar="#toolbar"
+                data-multiple-select-row="true"
+                data-click-to-select="true"
+                data-toggle="table"
+                data-height="400">
+                <thead>
+                    <tr>
+                        <th data-field="state" data-checkbox="true"></th>
+                        <th data-field="id">id</th>
+                        <th data-field="CFH">CFH</th>
+                        <th data-field="CFD">CFD</th>
+                        <th data-field="CTD">CTD</th>
+                        <th data-field="selectedRow">Selected Decision</th>
+                    </tr>
+                </thead>
+                </table>
+                </div>
+            </div>
+          </div>
+          <!-- <div class="eyebrow">
+            You can add an introductory text for interactive elements to motivate users to check out the following block.
+          </div> -->
+
+          <!-- <div id="board-letsplay" style="width: 320px; margin: auto auto 10px;"></div>
+          <div class="caption"><b>Figure 2:</b><br> Example of an interactive figure: Introducing the 8-Queens problem. Drag and drop queens to change their position. Try to position all queens
+            such that no two queens share the same row, column, or diagonal. Queens that threaten each other
+            will be highlighted in red. In case you found a solution all queens will be highlighted in green.</div> -->
+          <!-- <div class="btn-group" role="group">
+              <button type="button" class="btn btn-outline-primary" onclick="
+                            resetDecisionSituationN()
+                            gpTreeData = findDecisionRow(treeData['dataList'])
+                            drawRouteMap.resetCanvas()
+                            drawRouteMap.drawMap()
+          ">Reset</button>
+            <button type="button" class="btn btn-outline-primary" onclick="
+                drawRouteMap.driveForward(); 
+                nextSituation();
+              ">Next</button>
+            </div>
+          <div class="card-body" id="Map" value="index"></div> -->
+        </div>
+      </div>
+      <p>
+        Note, that we recommend to place the script import just behind the corresponding interactive figure,
+        such that we can easily match them later on.
+      </p>
+      </section>
+
+
+
+      <h2 id="commonmistakes">Some Common Mistakes</h2>
+
+      <ul id="SCM">
+        <li>The word "data" is plural, not singular.</li>
+        <li class="inline-math">The subscript for the permeability of vacuum $$\mu_{0}$$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter "o".</li>
+        <li>In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)</li>
+        <li>A graph within a graph is an "inset", not an "insert". The word alternatively is preferred to the word "alternately" (unless you really mean something that alternates).</li>
+        <li>Do not use the word "essentially" to mean "approximately" or "effectively".</li>
+        <li>In your paper title, if the words "that uses" can accurately replace the word "using", capitalize the "u"; if not, keep using lower-cased.</li>
+        <li>Be aware of the different meanings of the homophones "affect" and "effect", "complement" and "compliment", "discreet" and "discrete", "principal" and "principle".</li>
+        <li>Do not confuse "imply" and "infer".</li>
+        <li>The prefix "non" is not a word; it should be joined to the word it modifies, usually without a hyphen.</li>
+        <li>There is no period after the "et" in the Latin abbreviation "et al.".</li>
+        <li>The abbreviation "i.e." means "that is", and the abbreviation "e.g." means "for example".</li>
+      </ul>
+      <p>
+        An excellent style manual for science writers is [<a href="#ref_3">3</a>].
+      </p>
+
+      <h2 id="authors">Authors and Affiliations</h2>
+      <p>
+        A minimum of one author is required for all articles. Author names
+        should be listed from top to bottom.
+        This is the author sequence that will be used in future citations
+        and by indexing services. Names should not be listed in groups by
+        affiliation. Please keep your affiliations as succinct as possible (for
+        example, do not differentiate among departments of the same organization).
+      </p>
+
+      <h2 id="hints">Hints and General Advice</h2>
+      <h3>Identify the Headings</h3>
+      <p id="Headings">
+        Headings, or heads, are organizational devices that guide the reader through
+        your paper. There are two types: component heads and text heads.
+      </p>
+
+      <p>
+        Component heads identify the different components of your paper and are not
+        topically subordinate to each other. Examples include Acknowledgments and
+        References and, for these, the correct style has been implemented and
+        this template and is defined by the IEEE. Do not make any adjustments. Use
+        "figure caption" for your Figure captions, and "table head" for your
+        table title. Run-in heads, such as "Abstract", will require you to apply a
+        style (in this case, italic) in addition to the styles provided to differentiate the head from the text.
+      </p>
+
+      <p>
+        Text heads organize the topics on a relational, hierarchical basis. For
+        example, the paper title is the primary text head because all subsequent
+        material relates and elaborates on this one topic. If there are two or more
+        sub-topics, the next level head (uppercase Roman numerals) should be used
+        and, conversely, if there are not at least two sub-topics, then no subheads
+        should be introduced.
+      </p>
+
+      <h3>HTML-Specific Advice</h3>
+
+      <ul>
+        <li> &lt h1&gt  : Page title </li>
+        <li> &lt p class="subhead"&gt  : Subheading </li>
+        <li> &lt div class="header-authors"&gt  : Authors grid </li>
+        <li> &lt div class="header-published"&gt  : Published date information </li>
+        <li> &lt div class="contents box"&gt  : Table of contents </li>
+        <li> &lt section id="introduction"&gt  : Sections from table of contents. Allows for inclusion of in-line references </li>
+        <li> &lt figure class="text-center"&gt  : Tagging for images with caption </li>
+        <li class="tex2jax_ignore"> &lt p class="inline-math"&gt  : Allows for handling of MathJax expressions. Use $$ – some equation here – $$ to add an expression </li>
+        <li> &lt p class="math-left"&gt  and &lt p class="math-right"&gt  : Enables left/right alignment of an expression </li>
+        <li> &lt div class="static"&gt  : Supports static illustrations with caption </li>
+        <li> &lt div class="framed"&gt  : Each interactive element and scripts will be surrounded with this tagging </li>
+        <li> &lt div class="formula-wrapper"&gt  : Allows for adding content into styled and responsive table </li>
+        <li> &lt section class="references"&gt  : Reference list </li>
+      </ul>
+
+      <p>
+        Similar to LaTeX, using the same id multiple times may result
+        in unintended behavior when linking to said id.
+      </p>
+
+
+      <h3>Acknowledgment</h3>
+      <p id="Acknowledgment" class="inline-math">
+        The preferred spelling of the word "acknowledgment" in America is without
+        an "e" after the "g". Avoid the stilted expression "one of us (R. B.
+        G.) thanks $$\ldots$$". Instead, try "R. B. G. thanks $$\ldots$$". Put sponsor
+        acknowledgments in the acknowledgement section in the appendix.
+      </p>
+
+      <h3 id="References">References</h3>
+      <p class="inline-math">
+        Please number citations consecutively within brackets [<a href="#ref_4">4</a>]. The
+        sentence punctuation follows the bracket [<a href="#ref_4">4</a>]. Refer simply to the reference
+        number, as in [<a href="#ref_4">4</a>]---do not use "Ref. [<a href="#ref_4">4</a>]"
+        or "reference [<a href="#ref_4">4</a>]" except at
+        the beginning of a sentence: "Reference [<a href="#ref_4">4</a>] was the first $$\ldots$$"
+      </p>
+
+      <p>
+        Unless there are six authors or more give all authors' names; do not use
+        "et al.". Papers that have not been published, even if they have been
+        submitted for publication, should be cited as "unpublished" [<a href="#ref_5">5</a>]. Papers
+        that have been accepted for publication should be cited as "in press" [<a href="#ref_6">6</a>].
+        Capitalize only the first word in a paper title, except for proper nouns and element symbols.
+      </p>
+
+      <p>
+        For papers published in translation journals, please give the English
+        citation first, followed by the original foreign-language citation [<a href="#ref_7">7</a>].
+      </p>
+
+      <p style="color: red">
+        The IEEE interactive article template contains guidance text for composing and formatting of interactive articles.
+        Please ensure that all template text is removed from your article prior to submission.
+        Failure to remove the template text from your paper may result in your paper not being published.
+      </p>
+
+      <section class="references">
+        <h2>References</h2>
+        <ol>
+          <li id="ref_1">
+            Data-Driven Documents / d3.js
+            <br>
+            <span>
+              <a href="https://d3js.org/" target="_blank">https://d3js.org/</a>
+            </span>
+          </li>
+          <li id="ref_2">
+            three.js / editor
+            <br>
+            <span>
+              three.js <a href="https://threejs.org/" target="_blank">https://threejs.org/</a>
+            </span>
+          </li>
+          <li id="ref_3">
+            The Technical Writer's Handbook
+            <br>
+            <span>
+              Young, M., 1989. University Science Books.
+            </span>
+          </li>
+          <li id="ref_4">
+            Choosing Representation, Mutation, and Crossover in Genetic Algorithms
+            <span>
+              A. Dockhorn and S. Lucas, IEEE Computational Intelligence Magazine, vol. 17, no. 4, pp. 52-53, 1 Nov. 2022. DOI:<a href="https://ieeexplore.ieee.org/document/9942691" target="_blank">
+              10.1109/MCI.2022.3199626</a>
+            </span>
+          </li>
+          <li id="ref_5">
+            Title of paper if known
+            <span>
+              Elissa, K.. unpublished.
+            </span>
+          </li>
+          <li id="ref_6">
+            Title of paper with only first word capitalized
+            <span>
+              Nicole, R., (in press). J. Name Stand. Abbrev.
+            </span>
+          </li>
+          <li id="ref_7">
+            Electron spectroscopy studies on magneto-optical media and plastic substrate interface
+            <span>
+              Y. Yorozu, M.H. and Tagawa, Y., 1987. , Vol 2, pp. 740--741. IEEE Transl. J. Magn. Japan.
+            </span>
+          </li>
+        </ol>
+      </section>
+    </div>
+
+  </article><!-- End of aticle -->
+
+  <!-- Scroll to top button -->
+  <a class="scroll-top" href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 312.36">
+      <path fill="white"
+        d="M0 276.77 253.12 0 512 282.48l-32.65 29.88-226.2-246.83L32.66 306.64z" />
+    </svg>
+  </a>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let scrollTopBtn = document.querySelector(".scroll-top");
+      window.onscroll = function () { scrollFunction(scrollTopBtn) };
+
+      function scrollFunction(el) {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          el.style.display = "flex";
+        } else {
+          el.style.display = "none";
+        }
+      }
+    });
+  </script>
+  <script>
+        divValue = document.getElementById("Map").getAttribute("value");
+        // divWidth = document.getElementById("Map").clientWidth;
+        divWidth = 600
+        divHeight = 300
+        // divHeight = document.getElementById("Map").clientHeight;
+        let drawRouteMap = new RouteMap(mapData, pathData, bindData, divValue, divWidth, divHeight)
+        localStorage.setItem('decisionSituationN', 0)
+        loadTable()
+        gpTreeData = findDecisionRow(treeData['dataList'])
+        calDecisionSituation(tableData)
+        total_leaf_nodes = treeData['num_of_leaf_nodes']
+        let drawGPTree = new GPTree(total_leaf_nodes, divValue, divWidth, divHeight)
+        drawRouteMap.drawMap()
+        drawGPTree.drawTree(gpTreeData)
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+{
+  "equation": "(- (max (max (- (/ (* CR FRT) (/ (* DEM FUT) (+ CFH CR))) CFD) (/ CFH CFD)) (max (min CR (+ 0.05463361765438268 CTD)) (/ (* (* FULL (max CFD CFH)) FRT) (* DEM FUT)))) (/ (min (min (- CTD FUT) RQ) RQ) (/ DEM FRT)))",
+  "terminals": ["CR", "FRT", "DEM", "FUT", "CFH", "CFD", "CTD", "FULL", "RQ"],
+  "operators": ["-", "min", "+", "/", "max", "*"]
+}

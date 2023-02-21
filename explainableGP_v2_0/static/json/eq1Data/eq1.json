@@ -1,0 +1,5 @@
+{
+    "equation": "(- (+ (min (* CTT1 RQ) (+ (min (- (min SC DEM1) (/ DEM 0.437)) (- (- SC DEM1) (/ CR DEM))) (min (* CTT1 RQ) (- CFD CFD)))) (max (+ CTD (max CFH FULL)) (+ (* CFH (min (- SC FULL) (+ CTD RQ))) (+ DEM CR)))) (- (+ (* (- CTT1 FUT) (- FUT (+ DEM CR))) (* (/ DEM SC) FULL)) (max (min (min (* (/ DEM SC) FULL) (min (min RQ SC) (* SC SC))) (* FUT CR)) (max (max (- (max CFH FULL) (+ DEM CR)) (/ (+ DEM CR) (/ 0.398 CFH))) (/ (+ DEM CR) (/ 0.398 CFH))))))",
+    "terminals": ["CTT1", "RQ", "CR", "CFH", "CFD", "CFR1", "DEM", "DEM1", "FULL", "FRT", "FUT", "CTD", "RQ1", "SC", "DC"],
+    "operators": ["+", "-", "*", "/", "min", "max"]
+}

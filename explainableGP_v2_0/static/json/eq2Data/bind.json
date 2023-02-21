@@ -1,0 +1,89 @@
+[
+    {
+      "CFH": 11,
+      "FULL": 75,
+      "FRT": 7,
+      "CTD": 14,
+      "SC": 9,
+      "CR": 0,
+      "CFD": 13,
+      "DEM": 17,
+      "PASSCAP": 0,
+      "DecisionSituationN": 0,
+      "source": 17,
+      "target": 3
+    },
+    {
+      "CFH": 13,
+      "FULL": 0,
+      "FRT": 16,
+      "CTD": 7,
+      "SC": 14,
+      "CR": 15,
+      "CFD": 17,
+      "DEM": 7,
+      "PASSCAP": 0.2,
+      "DecisionSituationN": 1,
+      "source": 24,
+      "target": 28
+    },
+    {
+      "CFH": 0,
+      "FULL": 80,
+      "FRT": 0,
+      "CTD": 20,
+      "SC": 17,
+      "CR": 0,
+      "CFD": 12,
+      "DEM": 6,
+      "PASSCAP": 0,
+      "DecisionSituationN": 2,
+      "source": 3,
+      "target": 33
+
+    },
+    {
+      "CFH": 19,
+      "FULL": 62,
+      "FRT": 14,
+      "CTD": 8,
+      "SC": 7,
+      "CR": 18,
+      "CFD": 3,
+      "DEM": 10,
+      "PASSCAP": 0,
+      "DecisionSituationN": 3,
+      "source": 17,
+      "target": 27
+
+    },
+    {
+      "CFH": 20,
+      "FULL": 55,
+      "FRT": 6,
+      "CTD": 3,
+      "SC": 15,
+      "CR": 0,
+      "CFD": 12,
+      "DEM": 13,
+      "PASSCAP": 0,
+      "DecisionSituationN": 5,
+      "source": 7,
+      "target": 13
+    },
+    {
+      "CFH": 4,
+      "FULL": 0,
+      "FRT": 2,
+      "CTD": 8,
+      "SC": 3,
+      "CR": 15,
+      "CFD": 14,
+      "DEM": 15,
+      "PASSCAP": 0.4,
+      "DecisionSituationN": 6,
+      "source": 36,
+      "target": 5
+    }
+  ]
+  

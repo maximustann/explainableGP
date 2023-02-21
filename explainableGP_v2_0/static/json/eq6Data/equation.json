@@ -1,0 +1,1 @@
+{"equation": "(+ (+ (+ (* SC 0.3269962688521174) (- (min (+ CFH DEM1) CFH) (+ (+ CFD CTD) (/ (min CFD DEM1) (+ CFH DEM1))))) (+ (+ (* CTT1 0.3269962688521174) 0.3269962688521174) 0.3269962688521174)) CFH)", "terminals": ["DecisionSituationN", "SC", "CFH", "DEM1", "CFD", "CTD", "CTT1", "from", "to"], "operators": ["min", "/", "-", "+", "*"]}

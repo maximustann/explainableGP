@@ -1,0 +1,16 @@
+{
+  "equation": "(min (min (min (min (* CFH FRT) (/ (- CFH (- RQ 0.8041936420723114)) (min FUT CTD))) (min CTD FUT)) CFD) (- (* (+ (- (min CTD FUT) CFD) (* (max CFD CTT1) (+ (- FULL CTD) (+ CFH FULL)))) (/ (/ (min FUT CTD) (+ DEM1 CR)) (+ DEM1 CR))) (/ (+ (+ CFH FULL) (max CFD (max CFD CTT1))) (max (max (/ CTT1 CTD) CFH) (- (- CFH CTD) RQ)))))",
+  "terminals": [
+    "CFH",
+    "FRT",
+    "RQ",
+    "FUT",
+    "CTD",
+    "CFD",
+    "CTT1",
+    "FULL",
+    "DEM1",
+    "CR"
+  ],
+  "operators": ["*", "-", "+", "min", "max", "/"]
+}
